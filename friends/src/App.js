@@ -1,21 +1,35 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import {getFriends} from './actions/index';
 import './App.css';
 
 class App extends Component {
+  componentDidMount(){
+    this.props.getFriends();
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>Friends</h1>
+        {this.props.fetchingFriends ? (<h3>Getting Friends</h3>) 
+        : (
+          <ul>
+            {this.props.friends.map(friend => {
+              return <li key={friend.name}>{friend.name}</li>;
+            })}
+          </ul>
+        )}
       </div>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    fetchingFriends: state.fetchingFriends,
+    friendsFetched: state.friendsFetched,
+    friends: state.friends,
+  }
+}
 
-export default App;
+export default connect(mapStateToProps, {getFriends})(App);
