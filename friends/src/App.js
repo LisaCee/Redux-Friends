@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {getFriends, createFriend} from './actions/index';
+import {getFriends, createFriend, deleteFriend} from './actions/index';
 import './App.css';
 
 class App extends Component {
@@ -16,14 +16,16 @@ class App extends Component {
   }
 
   updateInput = e => {
-    this.setState({ name: e.target.value })
+    this.setState({ [e.target.name]: e.target.value })
     console.log('UPDATE', this.state);
   }
 
-  addFriend = () => {
-    const newFriend = { name: this.state.name};
+  addFriend = (e) => {
+    e.preventDefault();
+    const newFriend = { name: this.state.name, 
+      age: Number(this.state.age), email: this.state.email};
     this.props.createFriend(newFriend);
-    this.setState({ name: '' });
+    this.setState({ name: '', age: '', email: '' });
   }
 
   render() {
@@ -34,12 +36,16 @@ class App extends Component {
         : (
           <ul>
             {this.props.friends.map(friend => {
-              return <li key={friend.name}>{friend.name}</li>;
+                return <li key={ friend.name }>{ friend.name }  <button>X</button> </li>
             })}
           </ul>
         )}
-        <input placeholder='Add Friend' type='text' name='friend' onChange={this.updateInput} />
-        <button onClick={this.addFriend}>New Friend</button>
+        <form>
+          <input type='text' name='name' placeholder='name' onChange={this.updateInput} value={this.state.name}/>
+          <input type='number' name='age' placeholder='age' onChange={this.updateInput} value={this.state.age}/>
+          <input type='email' name='email' placeholder='email' onChange={this.updateInput} value={this.state.email}/>
+          <button onClick={this.addFriend}>New Friend</button>
+        </form>
       </div>
     );
   }
@@ -48,9 +54,10 @@ const mapStateToProps = state => {
   return {
     fetchingFriends: state.fetchingFriends,
     friendsFetched: state.friendsFetched,
-    savingFriend: state.savingFrien,
+    savingFriend: state.savingFriend,
+    deleteFriend: state.deleteFriend,
     friends: state.friends,
   }
 }
 
-export default connect(mapStateToProps, { getFriends, createFriend })(App);
+export default connect(mapStateToProps, { getFriends, createFriend, deleteFriend })(App);
