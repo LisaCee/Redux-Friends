@@ -69,12 +69,9 @@ app.post('/api/friends', (req, res) => {
 
 app.put('/api/friends/:id', (req, res) => {
   const { id } = req.params;
-
   const friendIndex = friends.findIndex(f => f.id == id);
-
   if (friendIndex > -1) {
     const friend = { ...friends[friendIndex], ...req.body };
-
     friends = [
       ...friends.slice(0, friendIndex),
       friend,
@@ -88,9 +85,7 @@ app.put('/api/friends/:id', (req, res) => {
 
 app.delete('/api/friends/:id', (req, res) => {
   const { id } = req.params;
-
   friends = friends.filter(f => f.id !== Number(id));
-
   res.send(friends);
 });
 

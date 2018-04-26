@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-
 import './App.css';
 import Friends from './Components/Friends';
 import CreateFriendForm from './Components/CreateFriendForm';
+import UpdateFriendForm from './Components/UpdateFriendForm';
 import { getFriends, deleteFriend } from './Actions';
 
 class App extends Component { 
@@ -15,12 +15,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <CreateFriendForm />   
-        <Friends {...this.props} />  
+        <CreateFriendForm /> 
+        <UpdateFriendForm />  
+        <Friends {...this.props} />
       </div>
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     fetchingFriends: state.fetchingFriends,
