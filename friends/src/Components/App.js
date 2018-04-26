@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import logo from './logo.svg';
 import './App.css';
-import { fetchFriends, postFriend } from '../Actions';
+import { fetchFriends, postFriend, deleteFriend } from '../Actions';
 
 class App extends Component {
   state = { name: '', age: '', email: '' }
@@ -17,6 +17,10 @@ class App extends Component {
     const { name, age, email } = this.state
     e.preventDefault();
     this.props.postFriend({ name, age, email });
+  }
+
+  handleDelete = id => {
+    this.props.deleteFriend(id);
   }
 
   componentDidMount() {
@@ -59,6 +63,7 @@ class App extends Component {
           return (
             <div key={index}>
               <h3>Friends name: {friend.name}</h3>
+              <button onClick={() => this.handleDelete(index + 1)}>Delete Friend Here!</button>
             </div>
           )
         })}
@@ -70,7 +75,9 @@ class App extends Component {
 const mapStateToProps =  state => ({
   friends: state.friends.friends,
   fetching: state.friends.fetching,
+  posting: state.friends.posting,
+  deleting: state.friends.deleting,
   error: state.friends.error,
 })
 
-export default connect(mapStateToProps, { fetchFriends, postFriend })(App);
+export default connect(mapStateToProps, { fetchFriends, postFriend, deleteFriend })(App);
