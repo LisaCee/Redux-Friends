@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import './App.css';
 import Friends from './Components/Friends';
 import CreateFriendForm from './Components/CreateFriendForm';
-import { getFriends } from './Actions';
+import { getFriends, deleteFriend } from './Actions';
 
 class App extends Component { 
   componentDidMount(){
@@ -30,9 +30,9 @@ const mapStateToProps = state => {
     // updatingFriend: state.updatingFriend,
     // friendUpdated: state.friendUpdated,
     // deletingFriend: state.deletingFriend,
-    // friendDeleted: state.friendDeleted,
+    friendDeleted: state.friendDeleted,
     friends: state.friends,
     error: state.error
   }
 } 
-export default connect(mapStateToProps, { getFriends })(App);
+export default connect(mapStateToProps, { getFriends, deleteFriend })(App);
