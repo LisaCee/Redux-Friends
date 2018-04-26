@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
+
 import './App.css';
 import Friends from './Components/Friends';
+import CreateFriendForm from './Components/CreateFriendForm';
 import { getFriends } from './Actions';
 
 class App extends Component { 
@@ -13,7 +15,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Friends friends={this.props.friends}/>        
+        <CreateFriendForm />   
+        <Friends {...this.props} />  
       </div>
     );
   }
@@ -22,12 +25,12 @@ const mapStateToProps = state => {
   return {
     fetchingFriends: state.fetchingFriends,
     friendsFetched: state.friendsFetched,
-    friendsSaved: state.friendsSaved,
-    savingFriends: state.savingFriends,
-    updatingFriend: state.updatingFriend,
-    friendUpdated: state.friendUpdated,
-    deletingFriend: state.deletingFriend,
-    friendDeleted: state.friendDeleted,
+    // friendsSaved: state.friendsSaved,
+    // savingFriends: state.savingFriends,
+    // updatingFriend: state.updatingFriend,
+    // friendUpdated: state.friendUpdated,
+    // deletingFriend: state.deletingFriend,
+    // friendDeleted: state.friendDeleted,
     friends: state.friends,
     error: state.error
   }
