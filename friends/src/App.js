@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {getFriends} from './actions/index';
+import {getFriends, createFriend} from './actions/index';
 import './App.css';
 
 class App extends Component {
+  state = {
+    id: '',
+    name: '',
+    age: '',
+    email: '',
+  };
+
   componentDidMount(){
     this.props.getFriends();
+  }
+
+  updateInput = e => {
+    this.setState({ name: e.target.value })
+    console.log('UPDATE', this.state);
+  }
+
+  addFriend = () => {
+    const newFriend = { name: this.state.name};
+    this.props.createFriend(newFriend);
+    this.setState({ name: '' });
   }
 
   render() {
@@ -20,6 +38,8 @@ class App extends Component {
             })}
           </ul>
         )}
+        <input placeholder='Add Friend' type='text' name='friend' onChange={this.updateInput} />
+        <button onClick={this.addFriend}>New Friend</button>
       </div>
     );
   }
@@ -28,8 +48,9 @@ const mapStateToProps = state => {
   return {
     fetchingFriends: state.fetchingFriends,
     friendsFetched: state.friendsFetched,
+    savingFriend: state.savingFrien,
     friends: state.friends,
   }
 }
 
-export default connect(mapStateToProps, {getFriends})(App);
+export default connect(mapStateToProps, { getFriends, createFriend })(App);
