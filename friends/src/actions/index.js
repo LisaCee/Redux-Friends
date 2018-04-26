@@ -11,7 +11,7 @@ export const getFriends = () => {
         axios.get('http://localhost:5000/api/friends')
             .then( (response) => {
                 console.log(response);
-                dispatch({ type: FETCHED, friends: response.data.friends})
+                dispatch({ type: FETCHED, friends: response.data})
             })
             .catch(err => {
                 dispatch({ type: ERROR})
