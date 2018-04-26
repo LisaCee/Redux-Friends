@@ -7,7 +7,7 @@ class App extends Component {
   state = {
     id: '',
     name: '',
-    age: null,
+    age: '',
     email: '',
   };
 
@@ -20,7 +20,8 @@ class App extends Component {
     console.log('UPDATE', this.state);
   }
 
-  addFriend = () => {
+  addFriend = (e) => {
+    e.preventDefault();
     const newFriend = { name: this.state.name, 
       age: Number(this.state.age), email: this.state.email};
     this.props.createFriend(newFriend);
@@ -40,13 +41,11 @@ class App extends Component {
           </ul>
         )}
         <form>
-          <input type='text' name='name' placeholder='name' onChange={this.updateInput}/>
-          <input type='number' name='age' placeholder='age' onChange={this.updateInput}/>
-          <input type='email' name='email' placeholder='email' onChange={this.updateInput}/>
+          <input type='text' name='name' placeholder='name' onChange={this.updateInput} value={this.state.name}/>
+          <input type='number' name='age' placeholder='age' onChange={this.updateInput} value={this.state.age}/>
+          <input type='email' name='email' placeholder='email' onChange={this.updateInput} value={this.state.email}/>
           <button onClick={this.addFriend}>New Friend</button>
         </form>
-        {/* <input placeholder='Add Friend' type='text' name='friend' onChange={this.updateInput} />
-        <button onClick={this.addFriend}>New Friend</button> */}
       </div>
     );
   }
