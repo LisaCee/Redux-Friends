@@ -15,14 +15,14 @@ const initialState = {
 
 
 export const friendReducer = (state=initialState, action) => {
-    switch(action.type) {
-        case FETCHING:
-            return {...state, fetchingFriends: true}
-        case FETCHED:
-            return {...state, fetchingFriends: false, friendsFetched: true, friends: state.friends.concat(action.friends)}
-        case ERROR:
-            return {...state, fetchingFriends: false, error: action.error}
-        default: 
-            return state;
+  switch(action.type) {
+    case FETCHING:
+      return {...state, fetchingFriends: true}
+    case FETCHED:
+      return {...state, fetchingFriends: false, friendsFetched: true, friends: state.friends.concat(action.friends)}
+    case ERROR:
+      return {...state, fetchingFriends: false, error: action.error}
+    default: 
+      return state;
     }
 }

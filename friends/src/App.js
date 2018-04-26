@@ -6,13 +6,11 @@ import './App.css';
 import Friends from './Components/Friends';
 import { getFriends } from './Actions';
 
-class App extends Component {
-  
+class App extends Component { 
   componentDidMount(){
     this.props.getFriends();
   }
   render() {
-    console.log(this.props);
     return (
       <div className="App">
         <Friends friends={this.props.friends}/>        
