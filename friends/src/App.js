@@ -7,7 +7,7 @@ class App extends Component {
   state = {
     id: '',
     name: '',
-    age: '',
+    age: null,
     email: '',
   };
 
@@ -16,14 +16,15 @@ class App extends Component {
   }
 
   updateInput = e => {
-    this.setState({ name: e.target.value })
+    this.setState({ [e.target.name]: e.target.value })
     console.log('UPDATE', this.state);
   }
 
   addFriend = () => {
-    const newFriend = { name: this.state.name};
+    const newFriend = { name: this.state.name, 
+      age: Number(this.state.age), email: this.state.email};
     this.props.createFriend(newFriend);
-    this.setState({ name: '' });
+    this.setState({ name: '', age: '', email: '' });
   }
 
   render() {
@@ -38,8 +39,14 @@ class App extends Component {
             })}
           </ul>
         )}
-        <input placeholder='Add Friend' type='text' name='friend' onChange={this.updateInput} />
-        <button onClick={this.addFriend}>New Friend</button>
+        <form>
+          <input type='text' name='name' placeholder='name' onChange={this.updateInput}/>
+          <input type='number' name='age' placeholder='age' onChange={this.updateInput}/>
+          <input type='email' name='email' placeholder='email' onChange={this.updateInput}/>
+          <button onClick={this.addFriend}>New Friend</button>
+        </form>
+        {/* <input placeholder='Add Friend' type='text' name='friend' onChange={this.updateInput} />
+        <button onClick={this.addFriend}>New Friend</button> */}
       </div>
     );
   }
