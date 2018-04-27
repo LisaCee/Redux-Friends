@@ -7,6 +7,7 @@ export const ERROR = 'ERROR';
 export const SAVING_FRIEND = 'SAVING_FRIEND';
 export const FRIEND_SAVED = 'FRIEND_SAVED';
 export const DELETING_FRIEND = 'DELETING_FRIEND';
+export const FRIEND_DELETED = 'FRIEND_DELETED';
 
 export const getFriends = () => {
     return dispatch => {
@@ -44,8 +45,7 @@ export const deleteFriend = (id) => {
             //**continue here**//
             .then( response => {
                 console.log('ress',response)
-                dispatch({ type: FRIEND_DELETED, /*friends: response.data*/})
-                dispatch(getFriends())
+                dispatch({ type: FRIEND_DELETED, friends: response.data})
                 
             })
             .catch( () => {

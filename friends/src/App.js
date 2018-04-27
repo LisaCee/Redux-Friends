@@ -28,6 +28,13 @@ class App extends Component {
     this.setState({ name: '', age: '', email: '' });
   }
 
+  delete = id => {
+    this.props.deleteFriend(id);
+    // console.log('remove here', this.props.friends);
+    // console.log('state',this.state)
+    
+  }
+
   render() {
     return (
       <div className="App">
@@ -36,7 +43,7 @@ class App extends Component {
         : (
           <ul>
             {this.props.friends.map((friend, index) => { 
-                return <li key={ friend.id }>{ friend.name }  <button onClick={() => this.delete(index) }>X</button> </li>
+                return <li key={ friend.id }>{ friend.name }  <button onClick={() => this.delete(friend.id) }>X</button> </li>
             })}
           </ul>
         )}
