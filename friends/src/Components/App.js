@@ -59,11 +59,12 @@ class App extends Component {
 	  placeholder="email"
 	  />
 	<button onClick={this.handleSubmit}>Add friend</button>
-        {this.props.friends.map((friend, index) => {
+        {this.props.friends.map(friend => {
           return (
-            <div key={index}>
+            <div key={friend.id}>
+	      {console.log(friend.id)}
               <h3>Friends name: {friend.name}</h3>
-              <button onClick={() => this.handleDelete(index + 1)}>Delete Friend Here!</button>
+              <button onClick={() => this.handleDelete(friend.id)}>Delete Friend Here!</button>
             </div>
           )
         })}
