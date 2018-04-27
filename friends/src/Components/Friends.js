@@ -1,19 +1,29 @@
 import React from 'react';
+import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Col, Row } from 'reactstrap';
+import "../App.css";
 
 const Friends = props => {
   return(
     <div>
       {props.fetchingFriends ? <p>Fetching Friends...</p> : null }
-      <ul>
+      <div className='friends'>
         {props.friends.map(friend => {
           return (
-            <li>
-              {friend.name}: EMAIL: {friend.email}, ID: {friend.id}, AGE: {friend.age}
-              <button onClick={() => props.deleteFriend(friend.id)} >Delete</button>
-            </li>
+            <div className='friendCard'>
+              
+                  <Card>
+                    <CardBody>
+                      <CardTitle>{friend.id}. {friend.name}</CardTitle>
+                      <CardSubtitle>{friend.age}</CardSubtitle>
+                      <CardText>{friend.email}</CardText>
+                      <Button onClick={() => props.deleteFriend(friend.id)} >Delete Friend</Button>
+                    </CardBody>
+                  </Card>
+                
+            </div>
           )
         })}           
-      </ul>
+      </div>
     </div>
     )
 }

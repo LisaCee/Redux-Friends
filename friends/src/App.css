@@ -26,3 +26,15 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.friends {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.friendCard {
+  width: 40%;
+  margin: 3%;
+}
+
