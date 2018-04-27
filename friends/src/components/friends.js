@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { getFriends,addFriend } from '../actions/getFriends';
+import { getFriends, addFriend, editFriend, deleteFriend } from '../actions/getFriends';
 
 class Friend extends React.Component{
 constructor(){
     super();
     this.state = {
-        newFriend: '',
+        name: '',
         age:'',
         email: '',
     }
@@ -16,11 +16,36 @@ componentDidMount(){
 }
 
 handleChange = (e) => {
-    this.setState({newFriend:e.target.value})
+    this.setState({[e.target.name]: e.target.value})
+   
+}
+  //all three need to line up and be the same
+handleSubmit = () => {
+    console.log()
+    this.props.addFriend({
+        
+        name: this.state.name,
+        age: this.state.age,
+        email: this.state.email,
+        
+    })
 }
 
-handleSubmit = () => {
-    this.props.addFriend()
+handleEdit(i) {
+let val = i + 1;
+    this.props.editFriend({
+        name: this.state.name,
+        age: this.state.age,
+        email: this.state.email,
+    }, val )
+
+}
+
+handleDelete(i) {
+let val = i + 1;
+
+this.props.deleteFriend(val)
+
 }
 
     render() {
@@ -28,15 +53,23 @@ handleSubmit = () => {
            
             <div>
                  <form onSubmit = {this.handleSubmit}>
-            <input id = "name" value = {this.state.newFriend} handleChange = {this.handleChange}/>
-            <input id = "age" value = {this.state.age} handleChange = />
-            <input id = "email" value = {this.state.email} handleChange =/>
+               
+            <input name = "name" value = {this.state.name} onChange = {this.handleChange}/>
+            <input name = "age" value = {this.state.age} onChange ={this.handleChange} />
+            <input name = "email" value = {this.state.email} onChange ={this.handleChange} />
+            <button className="button">Add Friend</button>
+            
+            
             </form>
                 {
                     this.props.friends.map((item,i) => {
                         return (
                             <div key = {i}>
-                                {item.name}
+                                {item.name}{item.age}{item.email}
+
+                                <button className="button" onClick = {() => {{this.handleEdit(i)}}}>Update Friend</button>
+
+                                <button className="button" onClick={() => {{this.handleDelete(i)}}} >Delete Friend</button>
                                 </div>
                         )
                     })
@@ -63,4 +96,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getFriends })(Friend)
+export default connect(mapStateToProps, { getFriends, addFriend, editFriend, deleteFriend })(Friend)
