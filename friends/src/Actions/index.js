@@ -10,6 +10,10 @@ export const DELETING_FRIEND = "DELETING_FRIEND";
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
 export const DELETE_ERROR = 'DELETE_ERROR';
 
+export const UPDATING_FRIEND = 'UPDATING_FRIEND';
+export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
+export const UPDATE_ERROR = 'UPDATE_ERROR';
+
 export const fetchingFriends = () => ({ type: FETCHING_FRIENDS });
 export const postingFriend = () => ({ type: POSTING_FRIEND });
 export const postSuccess = () => ({ type: POST_SUCCESS });
@@ -31,6 +35,10 @@ export const deleteError = error => ({
     payload: error,
 })
 
+export const updateError = error => ({
+    type: UPDATE_ERROR,
+    payload: error,
+})
 
 export const fetchSuccess = (friends) => ({
     type: FETCH_SUCCESS,
@@ -85,4 +93,21 @@ export const deleteFriend = id => dispatch => {
         })
 }
 
+export const updateFriend = friend => dispatch => {
+  const { name, age, email, id } = friend
+
+  dispatch({ type: UPDATING_FRIEND });
+
+  axios
+    .put(`http://localhost:5000/api/friends/${id}`, { name, age, email })
+    .then(response => {
+      setTimeout( () => {
+	dispatch({ type: UPDATE_SUCCESS })
+	    dispatch(fetchFriends())
+	    }, 1500)
+    })
+    .catch(error => {
+        dispatch(updateError(error))
+    })
+}
 

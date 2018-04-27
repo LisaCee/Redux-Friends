@@ -7,14 +7,17 @@ import {
   POST_ERROR,
   DELETING_FRIEND,
   DELETE_SUCCESS,
-  DELETE_ERROR
+  DELETE_ERROR,
+  UPDATING_FRIEND,
+  UPDATE_SUCCESS,
+  UPDATE_ERROR,
 } from '../Actions';
-// state = { fetch, success, error, state }
 
 const defaultState = {
   fetching: false,
   posting: false,
   deleting: false,
+  updating: false,
   error: null,
   friends: []
 }
@@ -52,7 +55,22 @@ export const friendsReducer = (state = defaultState, action) => {
      return Object.assign({}, state, { deleting: false });
 
   case DELETE_ERROR:
-    return Object.assign({}, state, { deleting: false })
+    return Object.assign({}, state, {
+      deleting: false,
+      error: action.payload,
+    })
+
+  case UPDATING_FRIEND:
+    return Object.assign({}, state, { updating: true })
+    
+  case UPDATE_SUCCESS:
+    return Object.assign({}, state, { updating: false })
+
+  case UPDATE_ERROR:
+    return Object.assign({}, state, {
+      updating: false,
+      error: action.payload
+    })
 
   default:
     return state;
