@@ -35,8 +35,8 @@ class App extends Component {
         {this.props.fetchingFriends ? (<h3>Getting Friends</h3>) 
         : (
           <ul>
-            {this.props.friends.map(friend => {
-                return <li key={ friend.name }>{ friend.name }  <button>X</button> </li>
+            {this.props.friends.map((friend, index) => { 
+                return <li key={ friend.id }>{ friend.name }  <button onClick={() => this.delete(index) }>X</button> </li>
             })}
           </ul>
         )}
@@ -46,6 +46,7 @@ class App extends Component {
           <input type='email' name='email' placeholder='email' onChange={this.updateInput} value={this.state.email}/>
           <button onClick={this.addFriend}>New Friend</button>
         </form>
+        {console.log("here",this.props.friends)}
       </div>
     );
   }

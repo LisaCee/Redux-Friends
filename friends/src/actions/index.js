@@ -14,11 +14,7 @@ export const getFriends = () => {
         axios.get('http://localhost:5000/api/friends')
             .then( (response) => {
                 console.log(response);
-<<<<<<< HEAD
-                dispatch({ type: FETCHED, friends: response.data})
-=======
                 dispatch({ type: FETCHED, friends: response.data })
->>>>>>> 12a0fd18f0f0c7eae249427829c9db3278ca5aa5
             })
             .catch(err => {
                 dispatch({ type: ERROR, error: 'ERROR GETTING FRIENDS'})
@@ -40,11 +36,20 @@ export const createFriend = (friend) => {
     }
 }
 
-export const deleteFriend = (friend) => {
+export const deleteFriend = (id) => {
     return dispatch => {
         dispatch({ type: DELETING_FRIEND });
         axios
-            .delete('http://localhost:5000/api/friends/:id')
+            .delete(`http://localhost:5000/api/friends/${id}`)
             //**continue here**//
+            .then( response => {
+                console.log('ress',response)
+                dispatch({ type: FRIEND_DELETED, /*friends: response.data*/})
+                dispatch(getFriends())
+                
+            })
+            .catch( () => {
+                dispatch({ type: ERROR, error: 'ERROR DELETING FRIEND'})
+            })
     }
 }
